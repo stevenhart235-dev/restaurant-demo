@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+coverage/
+pnpm-lock.yaml
+
+# Tenant JSON files are empty placeholders until schemas are introduced.
+restaurants/
+

@@ -1,0 +1,14 @@
+{
+  "name": "@restaurant-platform/storefront",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "astro build",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "astro": "7.1.3"
+  }
+}

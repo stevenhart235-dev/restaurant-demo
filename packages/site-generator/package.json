@@ -1,0 +1,22 @@
+{
+  "name": "@restaurant-platform/site-generator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/generate-site.d.ts",
+      "import": "./dist/generate-site.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@restaurant-platform/menu-parser": "workspace:*",
+    "@restaurant-platform/shared": "workspace:*",
+    "@restaurant-platform/themes": "workspace:*"
+  }
+}
