@@ -1,3 +1,4 @@
+export { MenuConfigSchema, type MenuConfig } from "./menu-config.js";
 export {
   RestaurantConfigSchema,
   type RestaurantConfig,

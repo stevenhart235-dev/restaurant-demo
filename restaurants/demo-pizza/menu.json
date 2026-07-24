@@ -1,0 +1,91 @@
+{
+  "id": "main-menu",
+  "name": "Main Menu",
+  "description": "Handcrafted pizzas, fresh salads, and house-made desserts.",
+  "effectiveDate": "2026-07-23",
+  "currency": "USD",
+  "sections": [
+    {
+      "id": "pizzas",
+      "name": "Pizzas",
+      "description": "Hand-stretched dough topped with thoughtfully sourced ingredients.",
+      "displayOrder": 1,
+      "items": [
+        {
+          "id": "margherita",
+          "name": "Margherita",
+          "description": "Tomato, fresh mozzarella, basil, and olive oil.",
+          "prices": [
+            {
+              "amount": 16
+            }
+          ],
+          "dietaryTags": ["vegetarian"],
+          "availability": "available",
+          "featured": true,
+          "image": "assets/menu/margherita.jpg"
+        },
+        {
+          "id": "pepperoni",
+          "name": "Pepperoni",
+          "description": "Tomato, mozzarella, and cup-and-char pepperoni.",
+          "prices": [
+            {
+              "name": "small",
+              "amount": 14.5
+            },
+            {
+              "name": "medium",
+              "amount": 18.5
+            },
+            {
+              "name": "large",
+              "amount": 22
+            }
+          ],
+          "availability": "available",
+          "featured": true
+        }
+      ]
+    },
+    {
+      "id": "salads",
+      "name": "Salads",
+      "displayOrder": 2,
+      "items": [
+        {
+          "id": "house-salad",
+          "name": "House Salad",
+          "description": "Mixed greens, tomato, cucumber, red onion, and house vinaigrette.",
+          "prices": [
+            {
+              "amount": 10.5
+            }
+          ],
+          "dietaryTags": ["vegan", "gluten-free"],
+          "availability": "available"
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "name": "Desserts",
+      "displayOrder": 3,
+      "items": [
+        {
+          "id": "tiramisu",
+          "name": "Tiramisu",
+          "description": "Espresso-soaked ladyfingers with mascarpone cream.",
+          "prices": [
+            {
+              "amount": 8
+            }
+          ],
+          "dietaryTags": ["vegetarian"],
+          "availability": "available",
+          "image": "assets/menu/tiramisu.jpg"
+        }
+      ]
+    }
+  ]
+}

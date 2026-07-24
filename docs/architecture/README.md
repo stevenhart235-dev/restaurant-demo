@@ -108,14 +108,15 @@ Owns small, platform-wide contracts and primitives that are genuinely shared
 across package boundaries. The restaurant configuration schema lives here so
 the admin, generator, themes, and storefront can consume one contract without
 depending on one another. It must not become a catch-all for business logic.
-Menu schemas remain outside this package until their ownership is designed.
+The source menu configuration schema also lives here so every consumer uses the
+same validated content contract.
 
 #### `packages/menu-parser/`
 
 Owns conversion of supported menu source formats into a generator-consumable
 menu representation. It may depend on `shared`, but not on the site generator,
-themes, applications, tenant directories, or infrastructure. Menu schemas and
-parsing behavior are intentionally deferred until that feature is designed.
+themes, applications, tenant directories, or infrastructure. It consumes the
+shared menu contract but does not redefine it.
 
 #### `packages/site-generator/`
 
