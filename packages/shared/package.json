@@ -10,8 +10,8 @@
     }
   },
   "scripts": {
-    "build": "tsc",
-    "test": "vitest run --passWithNoTests",
+    "build": "tsc --project tsconfig.build.json",
+    "test": "vitest run src --passWithNoTests",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

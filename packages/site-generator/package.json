@@ -5,13 +5,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/generate-site.d.ts",
-      "import": "./dist/generate-site.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "tsc",
-    "test": "vitest run --passWithNoTests",
+    "build": "tsc --project tsconfig.build.json",
+    "test": "vitest run src --passWithNoTests",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
