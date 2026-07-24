@@ -8,3 +8,4 @@ export {
   RestaurantConfigLoadError,
   type RestaurantConfigLoadErrorCode,
 } from "./load-restaurant-config.js";
+export { buildSiteModel, type SiteModel } from "./site-model.js";

@@ -136,6 +136,10 @@ logic, Cloudflare credentials, or deployment behavior.
 The generator owns validation orchestration and normalized build models, but it
 must not redefine the shared source configuration contract.
 
+Its presentation-agnostic site model composes validated restaurant and menu
+configuration with immutable metadata, contact, and branding projections.
+Rendering applications consume this model rather than reading tenant files.
+
 #### `packages/themes/`
 
 Owns the finite set of platform-supported themes and their shared theme
