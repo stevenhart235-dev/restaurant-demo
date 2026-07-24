@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@restaurant-platform/site-generator": "workspace:*",
     "astro": "7.1.3"
   }
 }

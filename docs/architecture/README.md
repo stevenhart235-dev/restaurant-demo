@@ -84,6 +84,13 @@ restaurant-specific branches, or provide an editing interface.
 The app manifest, Astro config, and TypeScript config belong at
 `apps/storefront/`; application source belongs at `apps/storefront/src/`.
 
+At build time, storefront pages ask the site generator for an immutable
+`SiteModel`. Pages render only that model and may apply local, deterministic
+presentation formatting; they do not import schemas or read tenant JSON files
+directly. The initial demo resolves its tenant directory relative to the
+storefront configuration module and injects the absolute path at build time, so
+builds do not depend on the process working directory or generated chunk paths.
+
 #### `apps/admin/`
 
 The private management application. Its eventual responsibility is to let an

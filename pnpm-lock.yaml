@@ -34,6 +34,9 @@ importers:
 
   apps/storefront:
     dependencies:
+      '@restaurant-platform/site-generator':
+        specifier: workspace:*
+        version: link:../../packages/site-generator
       astro:
         specifier: 7.1.3
         version: 7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)
