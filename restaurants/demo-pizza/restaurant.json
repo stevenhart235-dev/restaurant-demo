@@ -1,0 +1,73 @@
+{
+  "id": "demo-pizza",
+  "slug": "demo-pizza",
+  "name": "Demo Pizza",
+  "tagline": "Neighborhood pizza, made from scratch",
+  "description": "A welcoming neighborhood pizzeria serving handcrafted pies, salads, and desserts.",
+  "phone": "+1 312 555 0142",
+  "email": "hello@demo-pizza.example",
+  "address": {
+    "street": "123 Example Avenue",
+    "city": "Chicago",
+    "region": "IL",
+    "postalCode": "60601",
+    "country": "US"
+  },
+  "businessHours": [
+    {
+      "day": "monday",
+      "closed": true
+    },
+    {
+      "day": "tuesday",
+      "closed": false,
+      "open": "11:00",
+      "close": "21:00"
+    },
+    {
+      "day": "wednesday",
+      "closed": false,
+      "open": "11:00",
+      "close": "21:00"
+    },
+    {
+      "day": "thursday",
+      "closed": false,
+      "open": "11:00",
+      "close": "21:00"
+    },
+    {
+      "day": "friday",
+      "closed": false,
+      "open": "11:00",
+      "close": "22:00"
+    },
+    {
+      "day": "saturday",
+      "closed": false,
+      "open": "12:00",
+      "close": "22:00"
+    },
+    {
+      "day": "sunday",
+      "closed": false,
+      "open": "12:00",
+      "close": "20:00"
+    }
+  ],
+  "socialLinks": {
+    "facebook": "https://www.facebook.com/demo-pizza",
+    "instagram": "https://www.instagram.com/demo-pizza"
+  },
+  "orderingLink": "https://order.demo-pizza.example",
+  "theme": "default",
+  "brandColors": {
+    "primary": "#B42318",
+    "secondary": "#FFF4E6",
+    "accent": "#237A57"
+  },
+  "assets": {
+    "logo": "assets/logo.png",
+    "heroImage": "assets/hero.jpg"
+  }
+}

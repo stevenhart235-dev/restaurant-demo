@@ -104,10 +104,11 @@ must not import from `apps/`, `restaurants/`, `scripts/`, or `infrastructure/`.
 
 #### `packages/shared/`
 
-Owns small, platform-wide primitives that are genuinely shared across package
-boundaries. It must remain dependency-free and must not become a catch-all for
-business logic. Restaurant and menu schemas do not belong here unless a later
-architecture decision explicitly moves their ownership.
+Owns small, platform-wide contracts and primitives that are genuinely shared
+across package boundaries. The restaurant configuration schema lives here so
+the admin, generator, themes, and storefront can consume one contract without
+depending on one another. It must not become a catch-all for business logic.
+Menu schemas remain outside this package until their ownership is designed.
 
 #### `packages/menu-parser/`
 
@@ -118,8 +119,8 @@ parsing behavior are intentionally deferred until that feature is designed.
 
 #### `packages/site-generator/`
 
-Owns the generation pipeline and the restaurant configuration contract. Its
-responsibilities are:
+Owns the generation pipeline and consumes the restaurant configuration contract
+from `shared`. Its responsibilities are:
 
 - load the selected restaurant's configuration;
 - validate required fields and reject unknown or invalid values;
@@ -131,9 +132,8 @@ responsibilities are:
 It does not contain restaurant data, visual components, admin UI, GitHub Actions
 logic, Cloudflare credentials, or deployment behavior.
 
-For the simple MVP, schemas and shared TypeScript types should remain in this
-package. A separate configuration package is justified only when multiple
-consumers cannot use the generator's public contract cleanly.
+The generator owns validation orchestration and normalized build models, but it
+must not redefine the shared source configuration contract.
 
 #### `packages/themes/`
 
