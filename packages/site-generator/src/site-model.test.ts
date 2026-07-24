@@ -1,4 +1,4 @@
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -57,6 +57,7 @@ const menuConfiguration = {
           id: "test-item",
           name: "Test Item",
           prices: [{ amount: 12.5 }],
+          image: "assets/menu/test-item.svg",
         },
       ],
     },
@@ -70,6 +71,7 @@ async function createTemporaryRestaurant(): Promise<string> {
 }
 
 async function writeConfigurationFiles(directory: string): Promise<void> {
+  await mkdir(join(directory, "assets", "menu"), { recursive: true });
   await Promise.all([
     writeFile(
       join(directory, "restaurant.json"),
@@ -79,6 +81,13 @@ async function writeConfigurationFiles(directory: string): Promise<void> {
     writeFile(
       join(directory, "menu.json"),
       JSON.stringify(menuConfiguration),
+      "utf8",
+    ),
+    writeFile(join(directory, "assets", "logo.svg"), "<svg />", "utf8"),
+    writeFile(join(directory, "assets", "hero.jpg"), "placeholder", "utf8"),
+    writeFile(
+      join(directory, "assets", "menu", "test-item.svg"),
+      "<svg />",
       "utf8",
     ),
   ]);
@@ -101,6 +110,16 @@ describe("buildSiteModel", () => {
 
     expect(model.restaurant).toEqual(restaurantConfiguration);
     expect(model.menu).toEqual(menuConfiguration);
+    expect(model.assets.restaurant.logo).toMatchObject({
+      reference: "assets/logo.svg",
+      publicPath: "/assets/test-restaurant/logo.svg",
+      role: "restaurant-logo",
+    });
+    expect(model.assets.menuItems["test-item"]).toMatchObject({
+      publicPath: "/assets/test-restaurant/menu/test-item.svg",
+      role: "menu-item-image",
+      menuItemId: "test-item",
+    });
     expect(model.contact).toEqual({
       phone: restaurantConfiguration.phone,
       email: restaurantConfiguration.email,
@@ -114,6 +133,7 @@ describe("buildSiteModel", () => {
     expect(Object.isFrozen(model)).toBe(true);
     expect(Object.isFrozen(model.restaurant)).toBe(true);
     expect(Object.isFrozen(model.menu.sections)).toBe(true);
+    expect(Object.isFrozen(model.assets.files)).toBe(true);
     expect(Object.isFrozen(model.contact.address)).toBe(true);
     expect(Object.isFrozen(model.branding.colors)).toBe(true);
   });

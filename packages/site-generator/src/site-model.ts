@@ -2,6 +2,10 @@ import type { MenuConfig, RestaurantConfig } from "@restaurant-platform/shared";
 
 import { loadMenuConfig } from "./load-menu-config.js";
 import { loadRestaurantConfig } from "./load-restaurant-config.js";
+import {
+  resolveSiteAssets,
+  type ResolvedSiteAssets,
+} from "./resolve-assets.js";
 
 type DeepReadonly<T> = T extends (...arguments_: never[]) => unknown
   ? T
@@ -14,6 +18,7 @@ type DeepReadonly<T> = T extends (...arguments_: never[]) => unknown
 export interface SiteModel {
   readonly restaurant: DeepReadonly<RestaurantConfig>;
   readonly menu: DeepReadonly<MenuConfig>;
+  readonly assets: DeepReadonly<ResolvedSiteAssets>;
   readonly metadata: Readonly<{
     pageTitle: string;
     pageDescription: string;
@@ -47,10 +52,16 @@ export async function buildSiteModel(
 ): Promise<SiteModel> {
   const restaurant = await loadRestaurantConfig(restaurantDirectoryPath);
   const menu = await loadMenuConfig(restaurantDirectoryPath);
+  const assets = await resolveSiteAssets(
+    restaurantDirectoryPath,
+    restaurant,
+    menu,
+  );
 
   return deepFreeze({
     restaurant,
     menu,
+    assets,
     metadata: {
       pageTitle: restaurant.tagline
         ? `${restaurant.name} | ${restaurant.tagline}`

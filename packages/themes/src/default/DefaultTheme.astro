@@ -40,6 +40,13 @@ const accentColor =
   <body>
     <header class="site-header">
       <div class="container hero">
+        {model.assets.restaurant.logo && (
+          <img
+            class="restaurant-logo"
+            src={model.assets.restaurant.logo.publicPath}
+            alt={`${restaurant.name} logo`}
+          />
+        )}
         <p class="eyebrow">Welcome to</p>
         <h1>{restaurant.name}</h1>
         {restaurant.tagline && <p class="tagline">{restaurant.tagline}</p>}
@@ -50,6 +57,13 @@ const accentColor =
           <a class="primary-action" href={restaurant.orderingLink}>
             Order online from {restaurant.name}
           </a>
+        )}
+        {model.assets.restaurant.heroImage && (
+          <img
+            class="hero-image"
+            src={model.assets.restaurant.heroImage.publicPath}
+            alt=""
+          />
         )}
       </div>
     </header>
@@ -139,6 +153,14 @@ const accentColor =
                       ]}
                     >
                       <article>
+                        {model.assets.menuItems[item.id] && (
+                          <img
+                            class="menu-item-image"
+                            src={model.assets.menuItems[item.id].publicPath}
+                            alt={item.name}
+                            loading="lazy"
+                          />
+                        )}
                         <header class="item-heading">
                           <h4>{item.name}</h4>
                           <div class="item-states">
@@ -245,6 +267,22 @@ const accentColor =
 
   .hero {
     max-width: 52rem;
+  }
+
+  .restaurant-logo {
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-image {
+    display: block;
+    width: 100%;
+    max-height: 24rem;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
   }
 
   .eyebrow {
@@ -363,6 +401,14 @@ const accentColor =
   .menu-item {
     padding-block: 1.5rem;
     border-bottom: 1px solid #ded6d2;
+  }
+
+  .menu-item-image {
+    width: min(100%, 18rem);
+    aspect-ratio: 4 / 3;
+    margin-bottom: 1rem;
+    border-radius: 0.35rem;
+    object-fit: cover;
   }
 
   .menu-item.unavailable {

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title>Demo Pizza logo</title>
+  <circle cx="80" cy="80" r="76" fill="#fff4e6"/>
+  <circle cx="80" cy="80" r="58" fill="#b42318"/>
+  <path d="M48 55h64l-32 61z" fill="#ffd166"/>
+  <circle cx="69" cy="76" r="6" fill="#b42318"/>
+  <circle cx="91" cy="88" r="6" fill="#b42318"/>
+</svg>

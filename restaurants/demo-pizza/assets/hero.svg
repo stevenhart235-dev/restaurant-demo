@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title>Pizza on a table</title>
+  <desc>A simple illustrated placeholder for the Demo Pizza storefront.</desc>
+  <rect width="1200" height="500" fill="#fff4e6"/>
+  <rect y="330" width="1200" height="170" fill="#237a57"/>
+  <circle cx="600" cy="250" r="190" fill="#b42318"/>
+  <circle cx="600" cy="250" r="165" fill="#ffd166"/>
+  <g fill="#b42318">
+    <circle cx="520" cy="185" r="26"/>
+    <circle cx="670" cy="180" r="26"/>
+    <circle cx="570" cy="290" r="26"/>
+    <circle cx="715" cy="285" r="26"/>
+  </g>
+</svg>

@@ -23,7 +23,7 @@
           "dietaryTags": ["vegetarian"],
           "availability": "available",
           "featured": true,
-          "image": "assets/menu/margherita.jpg"
+          "image": "assets/menu/margherita.svg"
         },
         {
           "id": "pepperoni",
@@ -83,7 +83,7 @@
           ],
           "dietaryTags": ["vegetarian"],
           "availability": "available",
-          "image": "assets/menu/tiramisu.jpg"
+          "image": "assets/menu/tiramisu.svg"
         }
       ]
     }

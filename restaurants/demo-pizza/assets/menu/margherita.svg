@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-labelledby="title">
+  <title>Margherita pizza placeholder</title>
+  <rect width="640" height="480" fill="#fff4e6"/>
+  <circle cx="320" cy="240" r="190" fill="#b42318"/>
+  <circle cx="320" cy="240" r="165" fill="#ffd166"/>
+  <g fill="#f8fafc">
+    <circle cx="245" cy="175" r="35"/>
+    <circle cx="380" cy="180" r="35"/>
+    <circle cx="290" cy="300" r="35"/>
+    <circle cx="420" cy="295" r="35"/>
+  </g>
+  <g fill="#237a57">
+    <ellipse cx="300" cy="145" rx="14" ry="28"/>
+    <ellipse cx="365" cy="260" rx="14" ry="28"/>
+  </g>
+</svg>

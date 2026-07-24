@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-labelledby="title">
+  <title>Tiramisu placeholder</title>
+  <rect width="640" height="480" fill="#fff4e6"/>
+  <rect x="155" y="125" width="330" height="245" rx="18" fill="#6f4e37"/>
+  <path d="M155 190h330v70H155z" fill="#f5e6ca"/>
+  <path d="M155 285h330v60H155z" fill="#d6b98c"/>
+  <g fill="#3f2b20">
+    <circle cx="220" cy="105" r="8"/>
+    <circle cx="280" cy="98" r="8"/>
+    <circle cx="345" cy="108" r="8"/>
+    <circle cx="410" cy="100" r="8"/>
+  </g>
+</svg>

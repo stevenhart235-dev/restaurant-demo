@@ -67,7 +67,7 @@
     "accent": "#237A57"
   },
   "assets": {
-    "logo": "assets/logo.png",
-    "heroImage": "assets/hero.jpg"
+    "logo": "assets/logo.svg",
+    "heroImage": "assets/hero.svg"
   }
 }

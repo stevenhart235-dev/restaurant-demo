@@ -92,6 +92,11 @@ resolves its tenant directory relative to the storefront configuration module
 and injects the absolute path at build time, so builds do not depend on the
 process working directory or generated chunk paths.
 
+The storefront owns the build-output boundary for local assets. An Astro build
+hook copies the model's resolved files to their declared public paths after
+static rendering. It performs copying only; it does not derive paths, inspect
+image contents, optimize media, or expose source filesystem paths to HTML.
+
 #### `apps/admin/`
 
 The private management application. Its eventual responsibility is to let an
@@ -146,6 +151,15 @@ Its presentation-agnostic site model composes validated restaurant and menu
 configuration with immutable metadata, contact, and branding projections.
 Rendering applications consume this model rather than reading tenant files.
 
+The generator resolves configured asset references against the selected
+restaurant directory. It verifies that each target is a file beneath that
+restaurant's `assets/` directory using both lexical and real filesystem paths.
+It rejects missing files, directories, and escapes without reading file
+contents. Each resolved descriptor preserves the original reference, absolute
+source path, semantic role, and deterministic restaurant-scoped public path.
+These descriptors are exposed through `SiteModel`; the generator does not copy
+or render them.
+
 #### `packages/themes/`
 
 Owns the finite set of platform-supported themes and their shared theme
@@ -161,7 +175,9 @@ The package contains an explicit compile-time registry. The storefront resolves
 `SiteModel.branding.theme` through that registry; unknown identifiers stop the
 build and never fall back silently. A theme owns its Astro document component,
 local CSS, presentation helpers, metadata, and small presentation defaults. It
-receives `SiteModel` as a prop and performs no tenant file access.
+receives `SiteModel` as a prop and performs no tenant file access. Themes render
+only resolved public asset URLs and never receive asset contents or construct
+URLs from source paths.
 
 Start with one registered `default` theme in this package. Split individual
 themes into packages only if independent ownership or release cycles make that
@@ -182,6 +198,11 @@ restaurants/<restaurant-id>/
 theme selection, and supported theme options. `menu.json` contains structured
 menu data. `assets/` contains tenant-owned source images and similar static
 files; these can move to R2 later without changing the normalized model.
+
+Asset files are tenant-owned source inputs. References use validated relative
+paths beginning with `assets/`. Public paths use
+`/assets/<restaurant-slug>/<asset-relative-path>`, which prevents collisions
+between restaurants while remaining deterministic.
 
 Restaurant directories may contain configuration and assets only. They must not
 contain TypeScript, Astro components, CSS overrides, build scripts, secrets, or
@@ -256,10 +277,13 @@ flow. It does not sit in the build or rendering path.
 
 1. A command or workflow receives an explicit restaurant ID.
 2. The site generator loads only that restaurant directory.
-3. It validates and composes the configuration into `SiteModel`.
+3. It validates configuration and resolves local asset metadata into
+   `SiteModel`.
 4. The storefront resolves the model's theme through the compile-time registry.
-5. The selected theme renders static output into an isolated build directory.
-6. CI deploys that output to the restaurant's configured Cloudflare Pages
+5. The selected theme renders public asset URLs into static output.
+6. The storefront build hook copies each resolved source file to its public
+   location in the isolated build directory.
+7. CI deploys that output to the restaurant's configured Cloudflare Pages
    target.
 
 No step should infer a restaurant from hard-coded application state. Build
