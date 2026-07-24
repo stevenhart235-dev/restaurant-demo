@@ -6,9 +6,9 @@ import {
   formatLabel,
 } from "./presentation.js";
 
-describe("storefront presentation helpers", () => {
-  it("formats currency amounts using the menu currency", () => {
-    expect(formatCurrency(12.5, "USD")).toBe("$12.50");
+describe("theme presentation helpers", () => {
+  it("formats currency amounts using the menu currency and theme locale", () => {
+    expect(formatCurrency(12.5, "USD", "en-US")).toBe("$12.50");
   });
 
   it("formats open and closed business hours", () => {
@@ -20,12 +20,7 @@ describe("storefront presentation helpers", () => {
         close: "22:00",
       }),
     ).toBe("11:00 AM–10:00 PM");
-    expect(
-      formatBusinessHours({
-        day: "monday",
-        closed: true,
-      }),
-    ).toBe("Closed");
+    expect(formatBusinessHours({ day: "monday", closed: true })).toBe("Closed");
   });
 
   it("formats canonical identifiers as readable labels", () => {

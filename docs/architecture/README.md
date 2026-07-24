@@ -85,11 +85,12 @@ The app manifest, Astro config, and TypeScript config belong at
 `apps/storefront/`; application source belongs at `apps/storefront/src/`.
 
 At build time, storefront pages ask the site generator for an immutable
-`SiteModel`. Pages render only that model and may apply local, deterministic
-presentation formatting; they do not import schemas or read tenant JSON files
-directly. The initial demo resolves its tenant directory relative to the
-storefront configuration module and injects the absolute path at build time, so
-builds do not depend on the process working directory or generated chunk paths.
+`SiteModel`, resolve its configured theme through the explicit theme registry,
+and render the resulting Astro component. Pages do not own theme markup or
+styles, import schemas, or read tenant JSON files directly. The initial demo
+resolves its tenant directory relative to the storefront configuration module
+and injects the absolute path at build time, so builds do not depend on the
+process working directory or generated chunk paths.
 
 #### `apps/admin/`
 
@@ -133,8 +134,6 @@ from `shared`. Its responsibilities are:
 - load the selected restaurant's configuration;
 - validate required fields and reject unknown or invalid values;
 - normalize source files into a stable model;
-- resolve the configured theme from an allowlist;
-- invoke the storefront build with explicit inputs; and
 - report deterministic, actionable build errors.
 
 It does not contain restaurant data, visual components, admin UI, GitHub Actions
@@ -158,7 +157,13 @@ branch on a restaurant ID. Differences between restaurants are expressed
 through validated theme options. A one-off restaurant design either becomes a
 reusable theme or is out of scope for the platform.
 
-Start with one package containing a small theme registry. Split individual
+The package contains an explicit compile-time registry. The storefront resolves
+`SiteModel.branding.theme` through that registry; unknown identifiers stop the
+build and never fall back silently. A theme owns its Astro document component,
+local CSS, presentation helpers, metadata, and small presentation defaults. It
+receives `SiteModel` as a prop and performs no tenant file access.
+
+Start with one registered `default` theme in this package. Split individual
 themes into packages only if independent ownership or release cycles make that
 necessary.
 
@@ -228,17 +233,20 @@ The allowed dependency direction is:
 restaurant configuration
           │
           ▼
-    site generator ──────► themes
-          │                  │
-          └────────┬─────────┘
-                   ▼
-               storefront
-                   │
-                   ▼
-          static build output
-                   │
-                   ▼
-        Cloudflare infrastructure
+    site generator
+          │
+          ▼
+      SiteModel ────────► themes
+          │                 │
+          └───────┬─────────┘
+                  ▼
+              storefront
+                  │
+                  ▼
+         static build output
+                  │
+                  ▼
+       Cloudflare infrastructure
 ```
 
 The admin writes configuration through the same contract at the left of this
@@ -248,9 +256,9 @@ flow. It does not sit in the build or rendering path.
 
 1. A command or workflow receives an explicit restaurant ID.
 2. The site generator loads only that restaurant directory.
-3. It validates and normalizes the configuration.
-4. It resolves a supported theme and passes explicit build inputs to Astro.
-5. The storefront renders static output into an isolated build directory.
+3. It validates and composes the configuration into `SiteModel`.
+4. The storefront resolves the model's theme through the compile-time registry.
+5. The selected theme renders static output into an isolated build directory.
 6. CI deploys that output to the restaurant's configured Cloudflare Pages
    target.
 

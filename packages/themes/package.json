@@ -5,16 +5,17 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
     }
   },
   "scripts": {
-    "build": "tsc",
-    "test": "vitest run --passWithNoTests",
+    "build": "tsc --noEmit",
+    "test": "vitest run src --passWithNoTests",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@restaurant-platform/shared": "workspace:*"
+    "@restaurant-platform/site-generator": "workspace:*",
+    "astro": "7.1.3"
   }
 }

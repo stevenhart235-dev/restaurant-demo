@@ -37,6 +37,9 @@ importers:
       '@restaurant-platform/site-generator':
         specifier: workspace:*
         version: link:../../packages/site-generator
+      '@restaurant-platform/themes':
+        specifier: workspace:*
+        version: link:../../packages/themes
       astro:
         specifier: 7.1.3
         version: 7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)
@@ -61,15 +64,15 @@ importers:
       '@restaurant-platform/shared':
         specifier: workspace:*
         version: link:../shared
-      '@restaurant-platform/themes':
-        specifier: workspace:*
-        version: link:../themes
 
   packages/themes:
     dependencies:
-      '@restaurant-platform/shared':
+      '@restaurant-platform/site-generator':
         specifier: workspace:*
-        version: link:../shared
+        version: link:../site-generator
+      astro:
+        specifier: 7.1.3
+        version: 7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)
 
 packages:
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@restaurant-platform/site-generator": "workspace:*",
+    "@restaurant-platform/themes": "workspace:*",
     "astro": "7.1.3"
   }
 }

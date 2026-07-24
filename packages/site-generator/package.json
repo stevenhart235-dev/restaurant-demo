@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@restaurant-platform/menu-parser": "workspace:*",
-    "@restaurant-platform/shared": "workspace:*",
-    "@restaurant-platform/themes": "workspace:*"
+    "@restaurant-platform/shared": "workspace:*"
   }
 }
