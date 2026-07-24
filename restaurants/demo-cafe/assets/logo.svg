@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img" aria-labelledby="title">
+  <title id="title">Demo Cafe</title>
+  <rect width="240" height="96" rx="18" fill="#F2E9D8"/>
+  <path d="M43 29h58v30a19 19 0 0 1-19 19H62a19 19 0 0 1-19-19V29Z" fill="#245C4A"/>
+  <path d="M101 38h8a13 13 0 0 1 0 26h-8" fill="none" stroke="#245C4A" stroke-width="8"/>
+  <text x="126" y="58" fill="#245C4A" font-family="system-ui, sans-serif" font-size="22" font-weight="700">Demo Cafe</text>
+</svg>

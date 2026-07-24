@@ -84,18 +84,25 @@ restaurant-specific branches, or provide an editing interface.
 The app manifest, Astro config, and TypeScript config belong at
 `apps/storefront/`; application source belongs at `apps/storefront/src/`.
 
-At build time, storefront pages ask the site generator for an immutable
-`SiteModel`, resolve its configured theme through the explicit theme registry,
-and render the resulting Astro component. Pages do not own theme markup or
-styles, import schemas, or read tenant JSON files directly. The initial demo
-resolves its tenant directory relative to the storefront configuration module
-and injects the absolute path at build time, so builds do not depend on the
-process working directory or generated chunk paths.
+At build time, storefront pages ask the site generator to discover restaurant
+sources and produce immutable `SiteModel` objects. The dynamic Astro page
+creates one static path from each validated restaurant slug, resolves the
+configured theme through the explicit theme registry, and renders the resulting
+Astro component. The root page uses the same discovery result for a deliberately
+small storefront directory. Pages do not own theme markup or styles, import
+schemas, or read tenant JSON files directly.
+
+The Astro configuration resolves the `restaurants/` root relative to its own
+module and injects that absolute path at build time. Builds therefore do not
+depend on the process working directory or generated chunk paths.
 
 The storefront owns the build-output boundary for local assets. An Astro build
-hook copies the model's resolved files to their declared public paths after
-static rendering. It performs copying only; it does not derive paths, inspect
-image contents, optimize media, or expose source filesystem paths to HTML.
+hook discovers the same restaurants, asks the generator for a deterministic
+deduplicated asset manifest, and copies every model's resolved files to their
+declared public paths after static rendering. Manifest creation fails if
+different source files claim the same output path. The hook performs copying
+only; it does not derive paths, inspect image contents, optimize media, or expose
+source filesystem paths to HTML.
 
 #### `apps/admin/`
 
@@ -151,6 +158,15 @@ Its presentation-agnostic site model composes validated restaurant and menu
 configuration with immutable metadata, contact, and branding projections.
 Rendering applications consume this model rather than reading tenant files.
 
+Restaurant discovery is also owned here. It examines only direct, visible child
+directories of an explicit restaurants root; ordinary files and hidden
+directories are ignored. Every visible child directory must contain file
+entries named `restaurant.json` and `menu.json`, and every discovered source
+must successfully build a complete `SiteModel`. Results are sorted by validated
+slug. Missing or non-directory roots, incomplete sources, duplicate slugs, and
+all configuration or asset failures stop the build with typed errors rather
+than causing a source to be skipped.
+
 The generator resolves configured asset references against the selected
 restaurant directory. It verifies that each target is a file beneath that
 restaurant's `assets/` directory using both lexical and real filesystem paths.
@@ -158,7 +174,9 @@ It rejects missing files, directories, and escapes without reading file
 contents. Each resolved descriptor preserves the original reference, absolute
 source path, semantic role, and deterministic restaurant-scoped public path.
 These descriptors are exposed through `SiteModel`; the generator does not copy
-or render them.
+or render them. The generator can combine descriptors from multiple models into
+a public-path-sorted asset manifest. Identical source/public-path pairs are
+copied once; different sources targeting one public path are a build error.
 
 #### `packages/themes/`
 
@@ -275,19 +293,26 @@ flow. It does not sit in the build or rendering path.
 
 ## Build and deployment flow
 
-1. A command or workflow receives an explicit restaurant ID.
-2. The site generator loads only that restaurant directory.
-3. It validates configuration and resolves local asset metadata into
-   `SiteModel`.
-4. The storefront resolves the model's theme through the compile-time registry.
-5. The selected theme renders public asset URLs into static output.
-6. The storefront build hook copies each resolved source file to its public
-   location in the isolated build directory.
-7. CI deploys that output to the restaurant's configured Cloudflare Pages
-   target.
+1. Astro receives the repository-relative restaurants root from its
+   configuration.
+2. The site generator inspects its direct child directories and builds every
+   valid restaurant into a `SiteModel`, failing the whole build on malformed
+   visible sources.
+3. Astro `getStaticPaths` maps each model's validated slug to
+   `/<restaurant-slug>/` and passes that model as the route's build-time prop.
+4. Each restaurant route resolves the model's theme through the compile-time
+   registry and renders only that model's data and public asset URLs.
+5. The root route lists the same discovered restaurants and links to their
+   derived paths.
+6. The site generator produces one collision-checked asset manifest across all
+   models.
+7. The storefront build hook copies each unique resolved source file to its
+   restaurant-scoped public location in the shared static build directory.
+8. CI can later deploy that complete static output to Cloudflare Pages.
 
-No step should infer a restaurant from hard-coded application state. Build
-output for different restaurants must not share a writable directory.
+No step infers a restaurant from hard-coded application state. The restaurant
+slug namespaces both the route and its asset output, while collision detection
+guards the shared build directory.
 
 ## Testing boundaries
 

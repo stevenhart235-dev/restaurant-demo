@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-labelledby="title">
+  <title id="title">Oat milk latte placeholder</title>
+  <rect width="480" height="320" fill="#F2E9D8"/>
+  <ellipse cx="240" cy="265" rx="130" ry="22" fill="#D8CBB5"/>
+  <path d="M145 85h190l-19 156a28 28 0 0 1-28 24h-96a28 28 0 0 1-28-24L145 85Z" fill="#fff"/>
+  <ellipse cx="240" cy="87" rx="95" ry="28" fill="#8B5E3C"/>
+  <path d="M205 91c17-29 53-29 70 0-17 29-53 29-70 0Z" fill="#F7E7CE"/>
+</svg>

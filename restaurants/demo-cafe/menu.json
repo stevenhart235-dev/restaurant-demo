@@ -1,0 +1,72 @@
+{
+  "id": "cafe-menu",
+  "name": "Coffee & Breakfast",
+  "currency": "USD",
+  "sections": [
+    {
+      "id": "coffee",
+      "name": "Coffee",
+      "displayOrder": 1,
+      "items": [
+        {
+          "id": "filter-coffee",
+          "name": "Filter Coffee",
+          "prices": [
+            {
+              "amount": 3.5
+            }
+          ],
+          "availability": "available"
+        },
+        {
+          "id": "oat-latte",
+          "name": "Oat Milk Latte",
+          "description": "Double espresso with steamed oat milk.",
+          "prices": [
+            {
+              "name": "small",
+              "amount": 5
+            },
+            {
+              "name": "large",
+              "amount": 6.25
+            }
+          ],
+          "dietaryTags": ["vegan", "dairy-free"],
+          "featured": true,
+          "image": "assets/menu/oat-latte.svg"
+        }
+      ]
+    },
+    {
+      "id": "breakfast",
+      "name": "Breakfast",
+      "description": "Available while the kitchen is open.",
+      "displayOrder": 2,
+      "items": [
+        {
+          "id": "avocado-toast",
+          "name": "Avocado Toast",
+          "description": "Sourdough, smashed avocado, radish, and herbs.",
+          "prices": [
+            {
+              "amount": 12
+            }
+          ],
+          "dietaryTags": ["vegan"],
+          "availability": "available"
+        },
+        {
+          "id": "morning-bun",
+          "name": "Morning Bun",
+          "prices": [
+            {
+              "amount": 5.5
+            }
+          ],
+          "availability": "unavailable"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "id": "demo-cafe",
+  "slug": "demo-cafe",
+  "name": "Demo Cafe",
+  "description": "A sunny neighborhood cafe serving carefully brewed coffee and a concise breakfast menu.",
+  "phone": "+1 312 555 0188",
+  "address": {
+    "street": "48 Market Street",
+    "street2": "Ground Floor",
+    "city": "Chicago",
+    "region": "IL",
+    "postalCode": "60607",
+    "country": "US"
+  },
+  "businessHours": [
+    {
+      "day": "monday",
+      "closed": false,
+      "open": "07:00",
+      "close": "15:00"
+    },
+    {
+      "day": "tuesday",
+      "closed": false,
+      "open": "07:00",
+      "close": "15:00"
+    },
+    {
+      "day": "wednesday",
+      "closed": false,
+      "open": "07:00",
+      "close": "15:00"
+    },
+    {
+      "day": "thursday",
+      "closed": false,
+      "open": "07:00",
+      "close": "15:00"
+    },
+    {
+      "day": "friday",
+      "closed": false,
+      "open": "07:00",
+      "close": "16:00"
+    },
+    {
+      "day": "saturday",
+      "closed": false,
+      "open": "08:00",
+      "close": "16:00"
+    },
+    {
+      "day": "sunday",
+      "closed": true
+    }
+  ],
+  "socialLinks": {
+    "instagram": "https://www.instagram.com/demo-cafe"
+  },
+  "theme": "default",
+  "brandColors": {
+    "primary": "#245C4A",
+    "secondary": "#F2E9D8",
+    "accent": "#D97706"
+  },
+  "assets": {
+    "logo": "assets/logo.svg"
+  }
+}

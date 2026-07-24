@@ -3,20 +3,26 @@ import { dirname } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "astro/config";
-import { buildSiteModel } from "@restaurant-platform/site-generator";
+import {
+  createAssetManifest,
+  discoverRestaurants,
+} from "@restaurant-platform/site-generator";
 
-const demoRestaurantDirectory = fileURLToPath(
-  new URL("../../restaurants/demo-pizza", import.meta.url),
+const restaurantsRootDirectory = fileURLToPath(
+  new URL("../../restaurants", import.meta.url),
 );
 
 const copyRestaurantAssets = {
   name: "copy-restaurant-assets",
   hooks: {
     "astro:build:done": async ({ dir }) => {
-      const model = await buildSiteModel(demoRestaurantDirectory);
+      const restaurants = await discoverRestaurants(restaurantsRootDirectory);
+      const assetManifest = createAssetManifest(
+        restaurants.map((restaurant) => restaurant.model),
+      );
 
       await Promise.all(
-        model.assets.files.map(async (asset) => {
+        assetManifest.map(async (asset) => {
           const destinationPath = fileURLToPath(
             new URL(asset.publicPath.slice(1), dir),
           );
@@ -32,8 +38,8 @@ export default defineConfig({
   integrations: [copyRestaurantAssets],
   vite: {
     define: {
-      "import.meta.env.DEMO_RESTAURANT_DIRECTORY": JSON.stringify(
-        demoRestaurantDirectory,
+      "import.meta.env.RESTAURANTS_ROOT_DIRECTORY": JSON.stringify(
+        restaurantsRootDirectory,
       ),
     },
   },

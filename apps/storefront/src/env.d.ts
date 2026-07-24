@@ -1,5 +1,5 @@
 interface ImportMetaEnv {
-  readonly DEMO_RESTAURANT_DIRECTORY: string;
+  readonly RESTAURANTS_ROOT_DIRECTORY: string;
 }
 
 interface ImportMeta {

@@ -1,0 +1,29 @@
+---
+import type { GetStaticPaths } from "astro";
+import {
+  discoverRestaurants,
+  type SiteModel,
+} from "@restaurant-platform/site-generator";
+import { resolveTheme } from "@restaurant-platform/themes";
+
+interface Props {
+  model: SiteModel;
+}
+
+export const getStaticPaths = (async () => {
+  const restaurants = await discoverRestaurants(
+    import.meta.env.RESTAURANTS_ROOT_DIRECTORY,
+  );
+
+  return restaurants.map(({ model }) => ({
+    params: { slug: model.restaurant.slug },
+    props: { model },
+  }));
+}) satisfies GetStaticPaths;
+
+const { model } = Astro.props;
+const theme = resolveTheme(model.branding.theme);
+const ThemeComponent = theme.component;
+---
+
+<ThemeComponent model={model} presentation={theme.presentation} />

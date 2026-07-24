@@ -1,11 +1,81 @@
 ---
-import { buildSiteModel } from "@restaurant-platform/site-generator";
-import { resolveTheme } from "@restaurant-platform/themes";
+import { discoverRestaurants } from "@restaurant-platform/site-generator";
 
-const restaurantDirectory = import.meta.env.DEMO_RESTAURANT_DIRECTORY;
-const model = await buildSiteModel(restaurantDirectory);
-const theme = resolveTheme(model.branding.theme);
-const ThemeComponent = theme.component;
+const restaurants = await discoverRestaurants(
+  import.meta.env.RESTAURANTS_ROOT_DIRECTORY,
+);
 ---
 
-<ThemeComponent model={model} presentation={theme.presentation} />
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Browse the restaurant storefront demonstrations."
+    />
+    <title>Restaurant storefronts</title>
+  </head>
+  <body>
+    <main>
+      <h1>Restaurant storefronts</h1>
+      <p>Select a restaurant to view its generated storefront.</p>
+      <ul>
+        {
+          restaurants.map(({ model, routePath }) => (
+            <li>
+              <a href={routePath}>{model.restaurant.name}</a>
+              {model.restaurant.description && (
+                <p>{model.restaurant.description}</p>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    color: #202124;
+    background: #f7f7f5;
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+  }
+
+  main {
+    width: min(42rem, calc(100% - 2rem));
+    margin: 4rem auto;
+  }
+
+  ul {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 1rem 1.25rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    background: white;
+  }
+
+  a {
+    color: #174a3b;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin-block: 0.35rem 0;
+  }
+</style>
